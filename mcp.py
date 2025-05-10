@@ -1,7 +1,8 @@
 # mcp.py
 from fastmcp import FastMCP
-import sys
 import io
+import sys
+import json
 import base64
 import numpy as np
 import pandas as pd
@@ -10,9 +11,18 @@ import matplotlib.pyplot as plt
 # 1. MCP Server 설정 (HTTP 모드)
 mcp = FastMCP(
     name="WSG",
-    instructions="You are an AI assistant who utilizes tools that can help with game development",
-    http=True
+    http=True,
+    mount_path="/mcp"
+    instructions="You are an AI assistant who utilizes tools that can help with game development"
 )
+
+@mcp.on("$onInit")
+def init(params, request_id):
+    cfg_b64 = params.get("config")
+    if cfg_b64:
+        cfg = json.loads(base64.b64decode(cfg_b64))
+        # cfg["version"], cfg["description"] 등 사용
+    return None
 
 # 2. Ping Handler
 @mcp.on("$/ping")
