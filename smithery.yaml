@@ -1,6 +1,7 @@
 # Smithery.ai configuration
 startCommand:
   type: http
+  command: ["python", "mcp.py"]
   configSchema:
     type: object
     required: [name, description, version]

@@ -1,4 +1,7 @@
 fastmcp
+fastapi
+uvicorn
+pydantic
 numpy
 pandas
 koreanize_matplotlib
